@@ -16,8 +16,8 @@ def text_to_vector(text):
 
 
 class Perceptron:
-    def __init__(self, input_size):
-        self.weights = [0.0] * input_size
+    def __init__(self):
+        self.weights = [0.0] * 26
         self.bias = 0.0
 
     def predict(self, inputs):
@@ -34,7 +34,7 @@ class LanguageClassifier:
     def __init__(self, languages):
         self.languages = languages
         self.language_to_id = {lang: i for i, lang in enumerate(languages)}
-        self.perceptrons = {lang: Perceptron(26) for lang in languages}
+        self.perceptrons = {lang: Perceptron() for lang in languages}
 
     def predict(self, text):
         vector = text_to_vector(preprocess_text(text))
@@ -69,7 +69,7 @@ def main():
     training_data, languages = read_training_data(file_path)
     classifier = LanguageClassifier(languages)
 
-    # Trenowanie modelu
+
     learning_rate = 0.1
     for vector, language in training_data:
         classifier.train(vector, language, learning_rate)
