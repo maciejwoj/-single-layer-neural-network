@@ -33,7 +33,6 @@ class Perceptron:
 class LanguageClassifier:
     def __init__(self, languages):
         self.languages = languages
-        self.language_to_id = {lang: i for i, lang in enumerate(languages)}
         self.perceptrons = {lang: Perceptron() for lang in languages}
 
     def predict(self, text):
@@ -43,7 +42,6 @@ class LanguageClassifier:
 
 
     def train(self, vector, language, learning_rate):
-        language_id = self.language_to_id[language]
         for lang, perceptron in self.perceptrons.items():
             target = 1.0 if lang == language else 0.0
             perceptron.train(vector, target, learning_rate)
@@ -91,8 +89,6 @@ def main():
             break
         else:
             print("Niepoprawny wybór. Spróbuj ponownie.")
-
-
 
 
 if __name__ == "__main__":
